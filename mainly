@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Inc. — Value Creation Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<style>
+:root {
+  --ab:#0A84FF; --ag:#30D158; --ao:#FF9F0A;
+  --ar:#FF453A; --ap:#BF5AF2; --at:#5AC8FA;
+  --d1:#000; --d2:#1C1C1E; --d3:#2C2C2E;
+  --si:#AEAEB2; --wh:#F2F2F7;
+}
+*{box-sizing:border-box}
+.reveal{font-family:'DM Sans',sans-serif}
+.reveal .slides{text-align:left}
+.reveal h1,.reveal h2,.reveal h3{font-family:'Playfair Display',serif;text-transform:none;letter-spacing:-0.02em}
+.reveal section{padding:0;overflow:hidden}
+
+/* ── SLIDE BG WRAPPERS ── */
+.slide-bg{position:absolute;inset:0;z-index:0}
+.slide-bg svg{width:100%;height:100%;position:absolute;inset:0}
+.slide-bg .overlay{position:absolute;inset:0}
+.slide-content{position:relative;z-index:1;width:100%;height:100%}
+.slide-wrap{width:100%;height:100%;display:flex;flex-direction:column;padding:44px 56px;box-sizing:border-box}
+
+/* ── HEADER ── */
+.slide-header{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.slide-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--si);letter-spacing:3px;opacity:.6}
+.slide-title-line{width:36px;height:2px;border-radius:2px}
+.slide-title{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase}
+
+/* ── CARDS ── */
+.card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:22px;backdrop-filter:blur(12px)}
+.card-sm{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px 18px}
+.card-accent{border-left:3px solid var(--ab);border-radius:0 12px 12px 0;background:rgba(10,132,255,.07);padding:18px 22px}
+
+/* ── GRIDS ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.col-6040{display:grid;grid-template-columns:1.5fr 1fr;gap:26px}
+.col-4060{display:grid;grid-template-columns:1fr 1.5fr;gap:26px}
+
+/* ── TYPOGRAPHY ── */
+.hero-num{font-family:'Playfair Display',serif;font-size:clamp(38px,5.5vw,68px);font-weight:900;line-height:1}
+.hero-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--si);margin-top:4px}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:600}
+.tag-high{background:rgba(255,69,58,.2);color:var(--ar);border:1px solid rgba(255,69,58,.3)}
+.tag-mod{background:rgba(255,159,10,.2);color:var(--ao);border:1px solid rgba(255,159,10,.3)}
+.tag-low{background:rgba(48,209,88,.2);color:var(--ag);border:1px solid rgba(48,209,88,.3)}
+
+/* ── PROGRESS ── */
+.pbar{height:8px;border-radius:4px;background:rgba(255,255,255,.1);margin-top:6px;overflow:hidden}
+.pfill{height:100%;border-radius:4px;transition:width 1.5s cubic-bezier(.4,0,.2,1)}
+
+/* ── SEP ── */
+.sep{height:1px;background:rgba(255,255,255,.1);margin:12px 0}
+
+/* ── CHIPS ── */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.15);font-size:11px;color:var(--si)}
+
+/* ── ICON CIRCLE ── */
+.ic{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
+
+/* ── ANIMATIONS ── */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(10,132,255,.3)}50%{box-shadow:0 0 50px rgba(10,132,255,.7)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spinSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+.float{animation:float 4s ease-in-out infinite}
+.glow-b{animation:glow 3s ease-in-out infinite}
+
+/* ══════════════════════════════
+   MEMBER SETUP SCREEN
+══════════════════════════════ */
+#setup-screen{
+  position:fixed;inset:0;z-index:9999;
+  background:#000;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Sans',sans-serif;
+}
+.setup-box{
+  width:min(860px,95vw);
+  background:linear-gradient(135deg,#111,#1a1a22);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:24px;padding:48px 52px;
+  box-shadow:0 40px 120px rgba(0,0,0,.8);
+}
+.setup-logo{font-size:48px;text-align:center;margin-bottom:4px}
+.setup-title{font-family:'Playfair Display',serif;font-size:26px;color:#fff;text-align:center;margin-bottom:4px}
+.setup-sub{font-size:13px;color:var(--si);text-align:center;margin-bottom:36px}
+.members-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+.member-row{display:flex;flex-direction:column;gap:8px}
+.member-row label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--si)}
+.member-inputs{display:flex;gap:10px}
+.member-inputs input{
+  flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  border-radius:10px;padding:11px 14px;color:#fff;font-size:14px;font-family:'DM Sans',sans-serif;
+  outline:none;transition:.2s;
+}
+.member-inputs input:focus{border-color:var(--ab);background:rgba(10,132,255,.08)}
+.member-inputs input::placeholder{color:rgba(255,255,255,.3)}
+.role-select{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  border-radius:10px;padding:11px 14px;color:#fff;font-size:13px;font-family:'DM Sans',sans-serif;
+  outline:none;cursor:pointer;min-width:140px;
+}
+.role-select:focus{border-color:var(--ab)}
+.setup-btn{
+  width:100%;padding:15px;border-radius:14px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--ab),#0057cc);
+  color:#fff;font-size:16px;font-weight:600;font-family:'DM Sans',sans-serif;
+  letter-spacing:.5px;transition:.2s;
+}
+.setup-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(10,132,255,.5)}
+.course-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.course-row input{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  border-radius:10px;padding:11px 14px;color:#fff;font-size:14px;font-family:'DM Sans',sans-serif;
+  outline:none;transition:.2s;width:100%;
+}
+.course-row input:focus{border-color:var(--ag);background:rgba(48,209,88,.06)}
+.course-row input::placeholder{color:rgba(255,255,255,.3)}
+.section-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--si);margin-bottom:12px}
+
+/* ══════════════════════════════
+   TITLE SLIDE
+══════════════════════════════ */
+.hero-wrap{width:100%;height:100%;display:flex;flex-direction:column;padding:0;position:relative;overflow:hidden}
+.hero-content-area{display:flex;align-items:center;flex:1;padding:44px 60px;gap:60px}
+.hero-left{flex:1}
+.hero-right{width:260px;flex-shrink:0}
+.hero-bottom{padding:0 60px 28px;display:flex;gap:10px;flex-wrap:wrap}
+.hero-logo-wrap{width:72px;height:72px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:20px}
+.hero-eye{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--si);margin-bottom:10px}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,62px);font-weight:900;color:#fff;line-height:1.05;margin:0 0 16px}
+.hero-p{font-size:13px;color:var(--si);line-height:1.65;margin:0 0 22px;max-width:480px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.hstat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:14px 18px;min-width:90px}
+.hstat-v{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;line-height:1}
+.hstat-l{font-size:10px;color:var(--si);letter-spacing:1px;margin-top:3px}
+.member-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px 24px}
+.mc-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--si);margin-bottom:14px}
+.mc-member{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.mc-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;font-weight:700;font-family:'Space Mono',monospace}
+.mc-name{font-size:13px;color:#fff;font-weight:500}
+.mc-role{font-size:10px;color:var(--si);letter-spacing:.5px}
+.mc-footer{font-size:10px;color:var(--si);margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);line-height:1.6}
+.htopic{padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.12);font-size:10px;color:var(--si);letter-spacing:.5px}
+
+/* ══ FORCE DIAGRAM ══ */
+.force-grid{display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:1fr auto 1fr;gap:12px;align-items:center;flex:1}
+.force-center{width:130px;height:130px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;text-align:center;background:var(--ar);box-shadow:0 0 60px rgba(255,69,58,.4)}
+.force-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:16px}
+
+/* ══ TIMELINE ══ */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:linear-gradient(to bottom,var(--ab),var(--ap))}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-dot{position:absolute;left:-28px;top:2px;width:16px;height:16px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;background:#111}
+
+/* ══ BLOCKQUOTE ══ */
+.blockq{background:linear-gradient(135deg,rgba(10,132,255,.1),rgba(48,209,88,.06));border:1px solid rgba(10,132,255,.2);border-radius:14px;padding:20px 24px}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+  MEMBER SETUP SCREEN
+══════════════════════════════ -->
+<div id="setup-screen">
+  <div class="setup-box">
+    <div class="setup-logo">🍎</div>
+    <div class="setup-title">Apple Inc. — Value Creation Analysis</div>
+    <div class="setup-sub">Guruh a'zolarini kiriting — taqdimot boshlanishi uchun</div>
+
+    <div class="section-label">👥 Guruh a'zolari</div>
+    <div class="members-grid" id="members-grid">
+      <!-- Member rows injected by JS -->
+    </div>
+
+    <div class="section-label">📋 Kurs ma'lumotlari</div>
+    <div class="course-row">
+      <input id="course-name" type="text" placeholder="Kurs nomi (masalan: Strategic Management)">
+      <input id="course-date" type="text" placeholder="Sana (masalan: 2025-yil, Mart)">
+    </div>
+
+    <button class="setup-btn" onclick="startPresentation()">🚀 Taqdimotni boshlash</button>
+  </div>
+</div>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════
+  SLIDE 1 — TITLE  |  BG: Apple Park night
+═══════════════════════════════════ -->
+<section data-transition="fade">
+<div class="slide-bg">
+  <!-- Apple Park SVG background -->
+  <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="skyG" cx="50%" cy="0%" r="80%">
+        <stop offset="0%" stop-color="#050d1f"/>
+        <stop offset="100%" stop-color="#000408"/>
+      </radialGradient>
+      <radialGradient id="groundG" cx="50%" cy="100%" r="60%">
+        <stop offset="0%" stop-color="#0a0f08"/>
+        <stop offset="100%" stop-color="#020302"/>
+      </radialGradient>
+      <radialGradient id="parkGlow" cx="50%" cy="62%" r="38%">
+        <stop offset="0%" stop-color="#1a3a6e" stop-opacity=".5"/>
+        <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="ringGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#0a2a5e" stop-opacity=".6"/>
+        <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <!-- Sky -->
+    <rect width="1920" height="680" fill="url(#skyG)"/>
+    <!-- Ground -->
+    <rect y="680" width="1920" height="400" fill="url(#groundG)"/>
+    <!-- Park ambient glow -->
+    <ellipse cx="960" cy="670" rx="700" ry="200" fill="url(#parkGlow)"/>
+    <!-- Stars -->
+    <g fill="white" opacity=".7">
+      <circle cx="120" cy="60" r="1.2"/><circle cx="280" cy="30" r="1"/><circle cx="450" cy="90" r="1.5"/>
+      <circle cx="600" cy="45" r="1"/><circle cx="750" cy="80" r="1.2"/><circle cx="900" cy="25" r="1"/>
+      <circle cx="1050" cy="70" r="1.5"/><circle cx="1200" cy="40" r="1"/><circle cx="1380" cy="85" r="1.2"/>
+      <circle cx="1520" cy="55" r="1"/><circle cx="1680" cy="30" r="1.5"/><circle cx="1820" cy="75" r="1"/>
+      <circle cx="200" cy="150" r="1"/><circle cx="380" cy="180" r="1.3"/><circle cx="550" cy="130" r="1"/>
+      <circle cx="720" cy="170" r="1.2"/><circle cx="870" cy="140" r="1"/><circle cx="1030" cy="160" r="1.4"/>
+      <circle cx="1190" cy="120" r="1"/><circle cx="1350" cy="175" r="1.2"/><circle cx="1500" cy="145" r="1"/>
+      <circle cx="1650" cy="165" r="1.3"/><circle cx="1800" cy="130" r="1"/><circle cx="70" cy="220" r="1.2"/>
+      <circle cx="330" cy="240" r="1"/><circle cx="490" cy="200" r="1.3"/><circle cx="640" cy="250" r="1"/>
+      <circle cx="810" cy="220" r="1.1"/><circle cx="960" cy="235" r="1"/><circle cx="1110" cy="205" r="1.3"/>
+      <circle cx="1270" cy="245" r="1"/><circle cx="1430" cy="215" r="1.2"/><circle cx="1590" cy="240" r="1"/>
+      <circle cx="1750" cy="225" r="1.3"/><circle cx="1880" cy="195" r="1"/>
+      <circle cx="160" cy="300" r="1.1"/><circle cx="400" cy="320" r="1"/><circle cx="560" cy="280" r="1.2"/>
+      <circle cx="700" cy="310" r="1"/><circle cx="840" cy="295" r="1.3"/><circle cx="1080" cy="315" r="1"/>
+      <circle cx="1240" cy="285" r="1.2"/><circle cx="1400" cy="305" r="1"/><circle cx="1560" cy="290" r="1.3"/>
+      <circle cx="1720" cy="315" r="1"/>
+    </g>
+    <!-- Ring building outer glow -->
+    <ellipse cx="960" cy="665" rx="420" ry="140" fill="none" stroke="#1a4080" stroke-width="2" opacity=".4"/>
+    <ellipse cx="960" cy="665" rx="380" ry="125" fill="none" stroke="#1a4080" stroke-width="1.5" opacity=".3"/>
+    <!-- Ring body -->
+    <ellipse cx="960" cy="665" rx="340" ry="115" fill="#141820"/>
+    <!-- Inner courtyard -->
+    <ellipse cx="960" cy="665" rx="235" ry="78" fill="#04060d"/>
+    <!-- Windows - top arc -->
+    <g opacity=".9">
+      <!-- Using small amber dots along the ring -->
+      <circle cx="630" cy="650" r="3.5" fill="#ffbb30"/><circle cx="650" cy="637" r="3.5" fill="#ffcc40"/>
+      <circle cx="672" cy="626" r="3" fill="#ffb820"/><circle cx="696" cy="617" r="3.5" fill="#ffcc40"/>
+      <circle cx="722" cy="611" r="3" fill="#ffb820"/><circle cx="749" cy="607" r="3.5" fill="#ffcc40"/>
+      <circle cx="777" cy="605" r="3" fill="#ffb820"/><circle cx="806" cy="605" r="3.5" fill="#ffcc40"/>
+      <circle cx="835" cy="607" r="3" fill="#ffb820"/><circle cx="863" cy="611" r="3.5" fill="#ffcc40"/>
+      <circle cx="891" cy="617" r="3" fill="#ffb820"/><circle cx="918" cy="625" r="3.5" fill="#ffcc40"/>
+      <circle cx="944" cy="635" r="3" fill="#ffb820"/><circle cx="968" cy="646" r="3.5" fill="#ffcc40"/>
+      <circle cx="990" cy="658" r="3" fill="#ffb820"/><circle cx="1009" cy="670" r="3.5" fill="#ffcc40"/>
+      <!-- bottom arc -->
+      <circle cx="1028" cy="682" r="3" fill="#ffb820"/><circle cx="1044" cy="694" r="3.5" fill="#ffcc40"/>
+      <circle cx="1066" cy="703" r="3" fill="#ffb820"/><circle cx="1092" cy="710" r="3.5" fill="#ffcc40"/>
+      <circle cx="1120" cy="714" r="3" fill="#ffb820"/><circle cx="1148" cy="715" r="3.5" fill="#ffcc40"/>
+      <circle cx="1176" cy="713" r="3" fill="#ffb820"/><circle cx="1203" cy="708" r="3.5" fill="#ffcc40"/>
+      <circle cx="1228" cy="701" r="3" fill="#ffb820"/><circle cx="1252" cy="691" r="3.5" fill="#ffcc40"/>
+      <circle cx="1272" cy="679" r="3" fill="#ffb820"/><circle cx="1288" cy="666" r="3.5" fill="#ffcc40"/>
+      <circle cx="1298" cy="652" r="3" fill="#ffb820"/><circle cx="1302" cy="638" r="3.5" fill="#ffcc40"/>
+      <circle cx="1300" cy="624" r="3" fill="#ffb820"/><circle cx="1292" cy="610" r="3.5" fill="#ffcc40"/>
+      <circle cx="1278" cy="598" r="3" fill="#ffb820"/><circle cx="1258" cy="589" r="3.5" fill="#ffcc40"/>
+      <circle cx="1234" cy="583" r="3" fill="#ffb820"/><circle cx="1207" cy="579" r="3.5" fill="#ffcc40"/>
+      <circle cx="1179" cy="578" r="3" fill="#ffb820"/><circle cx="1150" cy="580" r="3.5" fill="#ffcc40"/>
+      <circle cx="1121" cy="584" r="3" fill="#ffb820"/><circle cx="1093" cy="591" r="3.5" fill="#ffcc40"/>
+      <circle cx="1066" cy="600" r="3" fill="#ffb820"/><circle cx="1040" cy="612" r="3.5" fill="#ffcc40"/>
+      <circle cx="1016" cy="625" r="3" fill="#ffb820"/><circle cx="994" cy="638" r="3.5" fill="#ffcc40"/>
+      <!-- left side -->
+      <circle cx="927" cy="650" r="3" fill="#ffb820"/><circle cx="900" cy="660" r="3.5" fill="#ffcc40"/>
+      <circle cx="873" cy="668" r="3" fill="#ffb820"/><circle cx="845" cy="673" r="3.5" fill="#ffcc40"/>
+      <circle cx="817" cy="674" r="3" fill="#ffb820"/><circle cx="789" cy="673" r="3.5" fill="#ffcc40"/>
+      <circle cx="761" cy="668" r="3" fill="#ffb820"/><circle cx="735" cy="660" r="3.5" fill="#ffcc40"/>
+      <circle cx="710" cy="650" r="3" fill="#ffb820"/><circle cx="688" cy="637" r="3.5" fill="#ffcc40"/>
+      <circle cx="668" cy="623" r="3" fill="#ffb820"/><circle cx="651" cy="609" r="3.5" fill="#ffcc40"/>
+    </g>
+    <!-- Connectors -->
+    <line x1="960" y1="587" x2="960" y2="665" stroke="#1a2030" stroke-width="14" opacity=".8"/>
+    <line x1="625" y1="665" x2="960" y2="665" stroke="#1a2030" stroke-width="14" opacity=".8"/>
+    <line x1="960" y1="665" x2="1295" y2="665" stroke="#1a2030" stroke-width="14" opacity=".8"/>
+    <line x1="960" y1="665" x2="960" y2="743" stroke="#1a2030" stroke-width="14" opacity=".8"/>
+    <!-- Trees -->
+    <g fill="#061206" opacity=".8">
+      <circle cx="615" cy="640" r="7"/><circle cx="640" cy="630" r="6"/><circle cx="680" cy="618" r="7"/>
+      <circle cx="720" cy="609" r="6"/><circle cx="780" cy="601" r="7"/><circle cx="840" cy="597" r="6"/>
+      <circle cx="900" cy="596" r="7"/><circle cx="960" cy="595" r="6"/><circle cx="1020" cy="596" r="7"/>
+      <circle cx="1080" cy="599" r="6"/><circle cx="1140" cy="605" r="7"/><circle cx="1196" cy="614" r="6"/>
+      <circle cx="1245" cy="626" r="7"/><circle cx="1285" cy="640" r="6"/><circle cx="1305" cy="658" r="7"/>
+      <circle cx="1308" cy="678" r="6"/><circle cx="1298" cy="697" r="7"/><circle cx="1278" cy="713" r="6"/>
+      <circle cx="1248" cy="724" r="7"/><circle cx="1210" cy="730" r="6"/><circle cx="1166" cy="731" r="7"/>
+      <circle cx="1120" cy="729" r="6"/><circle cx="1074" cy="723" r="7"/><circle cx="1028" cy="714" r="6"/>
+      <circle cx="984" cy="704" r="7"/><circle cx="940" cy="700" r="6"/><circle cx="895" cy="701" r="7"/>
+      <circle cx="850" cy="708" r="6"/><circle cx="806" cy="719" r="7"/><circle cx="762" cy="727" r="6"/>
+      <circle cx="716" cy="730" r="7"/><circle cx="668" cy="726" r="6"/><circle cx="622" cy="717" r="7"/>
+    </g>
+    <!-- City lights distance -->
+    <g opacity=".5">
+      <circle cx="200" cy="710" r="1.5" fill="#aa7020"/><circle cx="250" cy="720" r="1" fill="#cc8820"/>
+      <circle cx="310" cy="705" r="1.5" fill="#aa7020"/><circle cx="380" cy="715" r="1" fill="#cc8820"/>
+      <circle cx="450" cy="700" r="1.5" fill="#aa7020"/><circle cx="150" cy="730" r="1" fill="#cc8820"/>
+      <circle cx="1550" cy="710" r="1.5" fill="#aa7020"/><circle cx="1620" cy="720" r="1" fill="#cc8820"/>
+      <circle cx="1680" cy="705" r="1.5" fill="#aa7020"/><circle cx="1740" cy="715" r="1" fill="#cc8820"/>
+      <circle cx="1800" cy="700" r="1.5" fill="#aa7020"/><circle cx="1860" cy="730" r="1" fill="#cc8820"/>
+    </g>
+  </svg>
+  <div class="overlay" style="background:rgba(0,0,0,.55)"></div>
+</div>
+<div class="slide-content">
+  <div class="hero-wrap">
+    <div class="hero-content-area">
+      <div class="hero-left">
+        <div class="hero-logo-wrap float">🍎</div>
+        <div class="hero-eye fragment fade-up" data-fragment-index="1">Group Presentation · FY2024</div>
+        <h1 class="hero-h1 fragment fade-up" data-fragment-index="2">Apple Inc.<br><span style="color:var(--ab)">Value Creation</span><br>Analysis</h1>
+        <p class="hero-p fragment fade-up" data-fragment-index="3">A comprehensive examination of how Apple creates, delivers, and captures value in the global technology market.</p>
+        <div class="hero-stats fragment fade-up" data-fragment-index="4">
+          <div class="hstat"><div class="hstat-v" style="color:var(--ab)">$391B</div><div class="hstat-l">Revenue</div></div>
+          <div class="hstat"><div class="hstat-v" style="color:var(--ag)">$93.7B</div><div class="hstat-l">Net Income</div></div>
+          <div class="hstat"><div class="hstat-v" style="color:var(--ao)">46.2%</div><div class="hstat-l">Gross Margin</div></div>
+        </div>
+      </div>
+      <div class="hero-right fragment fade-up" data-fragment-index="5">
+        <div class="member-card">
+          <div class="mc-label">Group Members</div>
+          <div id="slide-members"></div>
+          <div class="sep"></div>
+          <div class="mc-footer" id="slide-course">Course: Strategic Management<br>Date: 2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-bottom fragment fade-up" data-fragment-index="6">
+      <div class="htopic">Background</div>
+      <div class="htopic">Value Proposition</div>
+      <div class="htopic">Value Creation</div>
+      <div class="htopic">Value Capture</div>
+      <div class="htopic">Porter's 5 Forces</div>
+      <div class="htopic">Conclusion</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════
+  SLIDE 2 — AGENDA  |  BG: iPhone lineup
+═══════════════════════════════════ -->
+<section data-transition="slide">
+<div class="slide-bg">
+  <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="iphBg" cx="50%" cy="50%" r="70%">
+        <stop offset="0%" stop-color="#050812"/>
+        <stop offset="100%" stop-color="#010205"/>
+      </radialGradient>
+      <radialGradient id="iph1g" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#0a2050" stop-opacity=".7"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#iphBg)"/>
+    <!-- ambient glow spots -->
+    <ellipse cx="400" cy="400" rx="320" ry="220" fill="#040c28" opacity=".8"/>
+    <ellipse cx="960" cy="500" rx="400" ry="260" fill="#040c28" opacity=".9"/>
+    <ellipse cx="1520" cy="400" rx="320" ry="220" fill="#040c28" opacity=".8"/>
+    <!-- 5 iPhones -->
+    <!-- iPhone 1 (left, smaller) -->
+    <g opacity=".75" transform="translate(235,300)">
+      <rect x="-55" y="-110" width="110" height="220" rx="18" fill="#161620" stroke="#303040" stroke-width="1.5"/>
+      <rect x="-46" y="-96" width="92" height="194" rx="14" fill="#0a0c18"/>
+      <rect x="-16" y="-92" width="32" height="10" rx="5" fill="#1a1a28"/>
+      <rect x="-28" y="80" width="56" height="5" rx="2.5" fill="#252535"/>
+    </g>
+    <!-- iPhone 2 -->
+    <g opacity=".88" transform="translate(540,280)">
+      <rect x="-62" y="-128" width="124" height="256" rx="20" fill="#181822" stroke="#363646" stroke-width="1.5"/>
+      <rect x="-52" y="-112" width="104" height="226" rx="16" fill="#0c0e1e"/>
+      <rect x="-18" y="-108" width="36" height="11" rx="5.5" fill="#1c1c2a"/>
+      <rect x="-32" y="94" width="64" height="5" rx="2.5" fill="#282838"/>
+    </g>
+    <!-- iPhone 3 (center, biggest) -->
+    <g opacity="1" transform="translate(960,290)">
+      <rect x="-72" y="-148" width="144" height="296" rx="24" fill="#1c1c26" stroke="#404055" stroke-width="2"/>
+      <rect x="-60" y="-130" width="120" height="262" rx="18" fill="#0e1020"/>
+      <!-- Screen content -->
+      <rect x="-50" y="-120" width="100" height="200" rx="12" fill="#0a0c1e"/>
+      <rect x="-28" y="-126" width="42" height="13" rx="6.5" fill="#1e1e2e"/>
+      <rect x="-38" y="108" width="76" height="6" rx="3" fill="#2c2c3e"/>
+      <!-- App icons on screen -->
+      <rect x="-38" y="-100" width="22" height="22" rx="6" fill="#0a84ff" opacity=".7"/>
+      <rect x="-12" y="-100" width="22" height="22" rx="6" fill="#30d158" opacity=".7"/>
+      <rect x="14" y="-100" width="22" height="22" rx="6" fill="#ff9f0a" opacity=".7"/>
+      <rect x="-38" y="-72" width="22" height="22" rx="6" fill="#bf5af2" opacity=".7"/>
+      <rect x="-12" y="-72" width="22" height="22" rx="6" fill="#ff453a" opacity=".7"/>
+      <rect x="14" y="-72" width="22" height="22" rx="6" fill="#5ac8fa" opacity=".7"/>
+    </g>
+    <!-- iPhone 4 -->
+    <g opacity=".88" transform="translate(1380,280)">
+      <rect x="-62" y="-128" width="124" height="256" rx="20" fill="#181822" stroke="#363646" stroke-width="1.5"/>
+      <rect x="-52" y="-112" width="104" height="226" rx="16" fill="#0c0e1e"/>
+      <rect x="-18" y="-108" width="36" height="11" rx="5.5" fill="#1c1c2a"/>
+      <rect x="-32" y="94" width="64" height="5" rx="2.5" fill="#282838"/>
+    </g>
+    <!-- iPhone 5 (right, smaller) -->
+    <g opacity=".75" transform="translate(1685,300)">
+      <rect x="-55" y="-110" width="110" height="220" rx="18" fill="#161620" stroke="#303040" stroke-width="1.5"/>
+      <rect x="-46" y="-96" width="92" height="194" rx="14" fill="#0a0c18"/>
+      <rect x="-16" y="-92" width="32" height="10" rx="5" fill="#1a1a28"/>
+      <rect x="-28" y="80" width="56" height="5" rx="2.5" fill="#252535"/>
+    </g>
+    <!-- Glow under phones -->
+    <ellipse cx="235" cy="420" rx="100" ry="18" fill="#0a1840" opacity=".5"/>
+    <ellipse cx="540" cy="420" rx="120" ry="20" fill="#0a1840" opacity=".6"/>
+    <ellipse cx="960" cy="450" rx="150" ry="25" fill="#0a1840" opacity=".7"/>
+    <ellipse cx="1380" cy="420" rx="120" ry="20" fill="#0a1840" opacity=".6"/>
+    <ellipse cx="1685" cy="420" rx="100" ry="18" fill="#0a1840" opacity=".5"/>
+    <!-- particles -->
+    <g fill="rgba(10,132,255,.4)">
+      <circle cx="100" cy="200" r="2"/><circle cx="300" cy="150" r="1.5"/><circle cx="500" cy="220" r="2"/>
+      <circle cx="700" cy="170" r="1.5"/><circle cx="1200" cy="190" r="2"/><circle cx="1400" cy="160" r="1.5"/>
+      <circle cx="1600" cy="210" r="2"/><circle cx="1800" cy="180" r="1.5"/>
+      <circle cx="200" cy="800" r="2"/><circle cx="400" cy="850" r="1.5"/><circle cx="700" cy="820" r="2"/>
+      <circle cx="1100" cy="830" r="1.5"/><circle cx="1500" cy="810" r="2"/><circle cx="1750" cy="840" r="1.5"/>
+    </g>
+  </svg>
+  <div class="overlay" style="background:rgba(0,0,0,.6)"></div>
+</div>
+<div class="slide-content">
+  <div class="slide-wrap">
+    <div class="slide-header">
+      <span class="slide-num">00</span>
+      <div class="slide-title-line" style="background:var(--ab)"></div>
+      <span class="slide-title" style="color:var(--ab)">Agenda</span>
+    </div>
+    <div class="grid-2" style="flex:1">
+      <div class="card fragment fade-up" data-fragment-index="1" style="display:flex;gap:14px;align-items:center;border-color:rgba(10,132,255,.3)">
+        <div class="ic" style="background:rgba(10,132,255,.15);color:var(--ab)">🏢</div>
+        <div><div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:3px">01 — Company Background</div><div style="font-size:11px;color:var(--si)">History, leadership, key financials & product portfolio</div></div>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="2" style="display:flex;gap:14px;align-items:center;border-color:rgba(48,209,88,.3)">
+        <div class="ic" style="background:rgba(48,209,88,.15);color:var(--ag)">💡</div>
+        <div><div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:3px">02 — Value Proposition</div><div style="font-size:11px;color:var(--si)">What Apple offers and why customers choose it</div></div>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="3" style="display:flex;gap:14px;align-items:center;border-color:rgba(255,159,10,.3)">
+        <div class="ic" style="background:rgba(255,159,10,.15);color:var(--ao)">⚙️</div>
+        <div><div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:3px">03 — How Apple Creates Value</div><div style="font-size:11px;color:var(--si)">R&D, ecosystem, brand — the value creation engine</div></div>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="4" style="display:flex;gap:14px;align-items:center;border-color:rgba(191,90,242,.3)">
+        <div class="ic" style="background:rgba(191,90,242,.15);color:var(--ap)">💰</div>
+        <div><div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:3px">04 — Value Capture Strategy</div><div style="font-size:11px;color:var(--si)">Pricing, services, distribution & IP monetization</div></div>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="5" style="display:flex;gap:14px;align-items:center;border-color:rgba(255,69,58,.3)">
+        <div class="ic" style="background:rgba(255,69,58,.15);color:var(--ar)">🎯</div>
+        <div><div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:3px">05 — Porter's Five Forces</div><div style="font-size:11px;color:var(--si)">Industry attractiveness and competitive dynamics</div></div>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="6" style="display:flex;gap:14px;align-items:center;border-color:rgba(90,200,250,.3)">
+        <div class="ic" style="background:rgba(90,200,250,.15);color:var(--at)">✅</div>
+        <div><div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:3px">06 — Conclusion</div><div style="font-size:11px;color:var(--si)">Key takeaways and strategic outlook</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════
+  SLIDE 3 — COMPANY BACKGROUND  |  BG: MacBook
+═══════════════════════════════════ -->
+<section data-transition="slide">
+<div class="slide-bg">
+  <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="mbBg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#04050c"/>
+        <stop offset="60%" stop-color="#070812"/>
+        <stop offset="100%" stop-color="#0e0e14"/>
+      </linearGradient>
+      <radialGradient id="screenGlow" cx="50%" cy="43%" r="35%">
+        <stop offset="0%" stop-color="#081430" stop-opacity=".8"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#mbBg)"/>
+    <rect width="1920" height="1080" fill="url(#screenGlow)"/>
+    <!-- Desk surface line -->
+    <rect y="778" width="1920" height="302" fill="#0c0c12"/>
+    <line x1="0" y1="778" x2="1920" y2="778" stroke="#252530" stroke-width="1"/>
+    <!-- MacBook lid -->
+    <rect x="610" y="200" width="700" height="450" rx="16" fill="#1c1c26" stroke="#383848" stroke-width="2"/>
+    <!-- Screen bezel -->
+    <rect x="626" y="216" width="668" height="420" rx="12" fill="#0a0c1c"/>
+    <!-- Screen content -->
+    <rect x="636" y="226" width="648" height="402" rx="10" fill="#090b19"/>
+    <!-- Code lines on screen -->
+    <rect x="660" y="248" width="648" height="16" rx="0" fill="#0e1020" opacity=".8"/>
+    <rect x="660" y="278" width="120" height="6" rx="3" fill="#0a84ff" opacity=".7"/>
+    <rect x="786" y="278" width="80" height="6" rx="3" fill="#30d158" opacity=".7"/>
+    <rect x="872" y="278" width="140" height="6" rx="3" fill="#bf5af2" opacity=".7"/>
+    <rect x="660" y="296" width="60" height="6" rx="3" fill="#ff9f0a" opacity=".7"/>
+    <rect x="726" y="296" width="200" height="6" rx="3" fill="#5ac8fa" opacity=".7"/>
+    <rect x="660" y="314" width="180" height="6" rx="3" fill="#30d158" opacity=".7"/>
+    <rect x="846" y="314" width="100" height="6" rx="3" fill="#ff453a" opacity=".7"/>
+    <rect x="660" y="332" width="240" height="6" rx="3" fill="#0a84ff" opacity=".7"/>
+    <rect x="660" y="350" width="160" height="6" rx="3" fill="#ff9f0a" opacity=".7"/>
+    <rect x="826" y="350" width="120" height="6" rx="3" fill="#bf5af2" opacity=".7"/>
+    <rect x="660" y="368" width="200" height="6" rx="3" fill="#5ac8fa" opacity=".7"/>
+    <rect x="660" y="386" width="90" height="6" rx="3" fill="#30d158" opacity=".7"/>
+    <rect x="756" y="386" width="170" height="6" rx="3" fill="#ff453a" opacity=".7"/>
+    <rect x="660" y="404" width="280" height="6" rx="3" fill="#0a84ff" opacity=".7"/>
+    <rect x="660" y="422" width="130" height="6" rx="3" fill="#ff9f0a" opacity=".7"/>
+    <!-- Cursor blink -->
+    <rect x="795" y="422" width="8" height="8" rx="1" fill="white" opacity=".9"/>
+    <!-- Keyboard base -->
+    <rect x="580" y="778" width="760" height="52" rx="8" fill="#161620" stroke="#282835" stroke-width="1"/>
+    <!-- Keyboard rows -->
+    <g fill="#1e1e2c" stroke="#2a2a38" stroke-width=".8" opacity=".8">
+      <rect x="596" y="786" width="22" height="16" rx="3"/><rect x="622" y="786" width="22" height="16" rx="3"/>
+      <rect x="648" y="786" width="22" height="16" rx="3"/><rect x="674" y="786" width="22" height="16" rx="3"/>
+      <rect x="700" y="786" width="22" height="16" rx="3"/><rect x="726" y="786" width="22" height="16" rx="3"/>
+      <rect x="752" y="786" width="22" height="16" rx="3"/><rect x="778" y="786" width="22" height="16" rx="3"/>
+      <rect x="804" y="786" width="22" height="16" rx="3"/><rect x="830" y="786" width="22" height="16" rx="3"/>
+      <rect x="856" y="786" width="22" height="16" rx="3"/><rect x="882" y="786" width="22" height="16" rx="3"/>
+      <rect x="908" y="786" width="22" height="16" rx="3"/><rect x="934" y="786" width="22" height="16" rx="3"/>
+      <rect x="960" y="786" width="22" height="16" rx="3"/><rect x="986" y="786" width="22" height="16" rx="3"/>
+      <rect x="1012" y="786" width="22" height="16" rx="3"/><rect x="1038" y="786" width="22" height="16" rx="3"/>
+      <rect x="1064" y="786" width="22" height="16" rx="3"/><rect x="1090" y="786" width="22" height="16" rx="3"/>
+      <!-- row 2 -->
+      <rect x="605" y="808" width="22" height="16" rx="3"/><rect x="631" y="808" width="22" height="16" rx="3"/>
+      <rect x="657" y="808" width="22" height="16" rx="3"/><rect x="683" y="808" width="22" height="16" rx="3"/>
+      <rect x="709" y="808" width="22" height="16" rx="3"/><rect x="735" y="808" width="22" height="16" rx="3"/>
+      <rect x="761" y="808" width="22" height="16" rx="3"/><rect x="787" y="808" width="22" height="16" rx="3"/>
+      <rect x="813" y="808" width="22" height="16" rx="3"/><rect x="839" y="808" width="22" height="16" rx="3"/>
+      <rect x="865" y="808" width="22" height="16" rx="3"/><rect x="891" y="808" width="22" height="16" rx="3"/>
+      <rect x="917" y="808" width="22" height="16" rx="3"/><rect x="943" y="808" width="22" height="16" rx="3"/>
+      <rect x="969" y="808" width="22" height="16" rx="3"/><rect x="995" y="808" width="22" height="16" rx="3"/>
+      <rect x="1021" y="808" width="22" height="16" rx="3"/><rect x="1047" y="808" width="22" height="16" rx="3"/>
+    </g>
+    <!-- Trackpad -->
+    <rect x="890" y="836" width="140" height="88" rx="10" fill="#141420" stroke="#222230" stroke-width="1"/>
+    <!-- Screen glow on desk -->
+    <ellipse cx="960" cy="780" rx="360" ry="30" fill="#06101e" opacity=".7"/>
+    <!-- Ambient particles -->
+    <g fill="rgba(10,132,255,.25)">
+      <circle cx="200" cy="300" r="2"/><circle cx="400" cy="250" r="1.5"/>
+      <circle cx="1500" cy="280" r="2"/><circle cx="1700" cy="320" r="1.5"/>
+      <circle cx="300" cy="800" r="1.5"/><circle cx="1600" cy="820" r="2"/>
+    </g>
+  </svg>
+  <div class="overlay" style="background:rgba(0,0,0,.58)"></div>
+</div>
+<div class="slide-content">
+  <div class="slide-wrap">
+    <div class="slide-header">
+      <span class="slide-num">01</span>
+      <div class="slide-title-line" style="background:var(--ab)"></div>
+      <span class="slide-title" style="color:var(--ab)">Company Background</span>
+    </div>
+    <div class="col-6040" style="flex:1;align-items:start">
+      <div>
+        <h2 style="color:#fff;margin:0 0 18px">Apple Inc. at a Glance</h2>
+        <div class="blockq fragment fade-up" data-fragment-index="1">
+          <p style="font-size:14px;color:#fff;margin:0;line-height:1.6;font-family:'Playfair Display',serif;font-style:italic">"Apple designs, manufactures, and markets smartphones, PCs, tablets, wearables, and integrated services — built around a deeply integrated hardware-software-services ecosystem."</p>
+        </div>
+        <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="card-sm fragment fade-up" data-fragment-index="2"><div style="font-size:10px;color:var(--si);letter-spacing:1px;text-transform:uppercase">Founded</div><div style="font-size:14px;font-weight:600;color:#fff;margin-top:4px">1976 · Cupertino, CA</div></div>
+          <div class="card-sm fragment fade-up" data-fragment-index="2"><div style="font-size:10px;color:var(--si);letter-spacing:1px;text-transform:uppercase">CEO</div><div style="font-size:14px;font-weight:600;color:#fff;margin-top:4px">Tim Cook</div></div>
+          <div class="card-sm fragment fade-up" data-fragment-index="3"><div style="font-size:10px;color:var(--si);letter-spacing:1px;text-transform:uppercase">Headquarters</div><div style="font-size:14px;font-weight:600;color:#fff;margin-top:4px">Apple Park, Cupertino</div></div>
+          <div class="card-sm fragment fade-up" data-fragment-index="3"><div style="font-size:10px;color:var(--si);letter-spacing:1px;text-transform:uppercase">Employees</div><div style="font-size:14px;font-weight:600;color:#fff;margin-top:4px">~150,000 worldwide</div></div>
+        </div>
+        <div style="margin-top:12px" class="fragment fade-up" data-fragment-index="4">
+          <div style="font-size:10px;color:var(--si);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Product Lines</div>
+          <div class="chips">
+            <span class="chip">📱 iPhone</span><span class="chip">💻 Mac</span><span class="chip">📱 iPad</span>
+            <span class="chip">⌚ Apple Watch</span><span class="chip">🎧 AirPods</span><span class="chip">☁️ Services</span>
+          </div>
+        </div>
+      </div>
+      <div class="fragment fade-up" data-fragment-index="5">
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--si);margin-bottom:14px">FY2024 Revenue Mix</div>
+        <svg viewBox="0 0 150 150" width="150" height="150" style="display:block;margin:0 auto 14px">
+          <circle cx="75" cy="75" r="58" fill="none" stroke="#2C2C2E" stroke-width="22"/>
+          <circle cx="75" cy="75" r="58" fill="none" stroke="var(--ab)" stroke-width="22" stroke-dasharray="184 182" stroke-dashoffset="0" transform="rotate(-90 75 75)"/>
+          <circle cx="75" cy="75" r="58" fill="none" stroke="var(--ag)" stroke-width="22" stroke-dasharray="90 276" stroke-dashoffset="-184" transform="rotate(-90 75 75)"/>
+          <circle cx="75" cy="75" r="58" fill="none" stroke="var(--ao)" stroke-width="22" stroke-dasharray="29 337" stroke-dashoffset="-274" transform="rotate(-90 75 75)"/>
+          <circle cx="75" cy="75" r="58" fill="none" stroke="var(--ap)" stroke-width="22" stroke-dasharray="22 344" stroke-dashoffset="-303" transform="rotate(-90 75 75)"/>
+          <circle cx="75" cy="75" r="58" fill="none" stroke="var(--ar)" stroke-width="22" stroke-dasharray="36 330" stroke-dashoffset="-325" transform="rotate(-90 75 75)"/>
+          <text x="75" y="79" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="serif">$391B</text>
+        </svg>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+          <div style="font-size:11px;color:var(--si)"><span style="color:var(--ab)">■</span> iPhone 51%</div>
+          <div style="font-size:11px;color:var(--si)"><span style="color:var(--ag)">■</span> Services 25%</div>
+          <div style="font-size:11px;color:var(--si)"><span style="color:var(--ao)">■</span> Mac 8%</div>
+          <div style="font-size:11px;color:var(--si)"><span style="color:var(--ap)">■</span> iPad 6%</div>
+          <div style="font-size:11px;color:var(--si)"><span style="color:var(--ar)">■</span> Wearables 10%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════
+  SLIDE 4 — VALUE PROPOSITION  |  BG: Apple Store
+═══════════════════════════════════ -->
+<section data-transition="convex">
+<div class="slide-bg">
+  <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="storeBg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#050508"/>
+        <stop offset="55%" stop-color="#080810"/>
+        <stop offset="100%" stop-color="#111118"/>
+      </linearGradient>
+      <radialGradient id="ceilGlow" cx="50%" cy="26%" r="50%">
+        <stop offset="0%" stop-color="#1a1608" stop-opacity=".7"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#storeBg)"/>
+    <rect width="1920" height="1080" fill="url(#ceilGlow)"/>
+    <!-- Floor -->
+    <rect y="670" width="1920" height="410" fill="#0d0d15"/>
+    <line x1="0" y1="670" x2="1920" y2="670" stroke="#202028" stroke-width="1.5"/>
+    <!-- Vanishing perspective lines -->
+    <line x1="0" y1="1080" x2="960" y2="300" stroke="#161620" stroke-width="1"/>
+    <line x1="240" y1="1080" x2="960" y2="300" stroke="#161620" stroke-width="1"/>
+    <line x1="480" y1="1080" x2="960" y2="300" stroke="#161620" stroke-width="1"/>
+    <line x1="720" y1="1080" x2="960" y2="300" stroke="#161620" stroke-width="1"/>
+    <line x1="960" y1="1080" x2="960" y2="300" stroke="#161620" stroke-width="1"/>
+    <line x1="1200" y1="1080" x2="960" y2="300" stroke="#161620" stroke-width="1"/>
+    <line x1="1440" y1="1080" x2="960" y2="300" stroke="#161620" stroke-width="1"/>
+    <line x1="1680" y1="1080" x2="960" y2="300" stroke="#161620" stroke-width="1"/>
+    <line x1="1920" y1="1080" x2="960" y2="300" stroke="#161620" stroke-width="1"/>
+    <!-- Horizontal perspective lines -->
+    <line x1="0" y1="400" x2="1920" y2="400" stroke="#181820" stroke-width=".8"/>
+    <line x1="0" y1="500" x2="1920" y2="500" stroke="#181820" stroke-width=".8"/>
+    <line x1="0" y1="580" x2="1920" y2="580" stroke="#181820" stroke-width=".8"/>
+    <line x1="0" y1="670" x2="1920" y2="670" stroke="#181820" stroke-width=".8"/>
+    <line x1="0" y1="760" x2="1920" y2="760" stroke="#181820" stroke-width=".8"/>
+    <!-- Ceiling glass panels -->
+    <rect x="0" y="300" width="212" height="140" fill="none" stroke="#1e1e28" stroke-width="1"/>
+    <rect x="215" y="300" width="212" height="140" fill="none" stroke="#1e1e28" stroke-width="1"/>
+    <rect x="430" y="300" width="212" height="140" fill="none" stroke="#1e1e28" stroke-width="1"/>
+    <rect x="645" y="300" width="212" height="140" fill="none" stroke="#1e1e28" stroke-width="1"/>
+    <rect x="860" y="300" width="212" height="140" fill="none" stroke="#1e1e28" stroke-width="1"/>
+    <rect x="1075" y="300" width="212" height="140" fill="none" stroke="#1e1e28" stroke-width="1"/>
+    <rect x="1290" y="300" width="212" height="140" fill="none" stroke="#1e1e28" stroke-width="1"/>
+    <rect x="1505" y="300" width="212" height="140" fill="none" stroke="#1e1e28" stroke-width="1"/>
+    <rect x="1720" y="300" width="200" height="140" fill="none" stroke="#1e1e28" stroke-width="1"/>
+    <!-- Ceiling lights warm glow -->
+    <ellipse cx="300" cy="316" rx="100" ry="14" fill="#2a2012" opacity=".9"/>
+    <ellipse cx="660" cy="316" rx="100" ry="14" fill="#2a2012" opacity=".9"/>
+    <ellipse cx="960" cy="316" rx="100" ry="14" fill="#2a2012" opacity=".9"/>
+    <ellipse cx="1260" cy="316" rx="100" ry="14" fill="#2a2012" opacity=".9"/>
+    <ellipse cx="1620" cy="316" rx="100" ry="14" fill="#2a2012" opacity=".9"/>
+    <rect x="250" y="310" width="100" height="8" rx="4" fill="#c8b878"/>
+    <rect x="610" y="310" width="100" height="8" rx="4" fill="#c8b878"/>
+    <rect x="910" y="310" width="100" height="8" rx="4" fill="#c8b878"/>
+    <rect x="1210" y="310" width="100" height="8" rx="4" fill="#c8b878"/>
+    <rect x="1570" y="310" width="100" height="8" rx="4" fill="#c8b878"/>
+    <!-- Product tables -->
+    <ellipse cx="500" cy="658" rx="130" ry="20" fill="#1e1c18"/>
+    <ellipse cx="960" cy="648" rx="150" ry="22" fill="#1e1c18"/>
+    <ellipse cx="1420" cy="658" rx="130" ry="20" fill="#1e1c18"/>
+    <!-- Devices on tables -->
+    <rect x="940" y="560" width="40" height="80" rx="5" fill="#161622" stroke="#303040" stroke-width="1"/>
+    <rect x="944" y="564" width="32" height="68" rx="4" fill="#0a0c1e"/>
+    <rect x="460" y="575" width="80" height="70" rx="6" fill="#181822" stroke="#282838" stroke-width="1"/>
+    <rect x="464" y="579" width="72" height="62" rx="4" fill="#0e1020"/>
+    <!-- Floor reflections -->
+    <ellipse cx="500" cy="680" rx="180" ry="12" fill="#12100a" opacity=".5"/>
+    <ellipse cx="960" cy="672" rx="200" ry="14" fill="#12100a" opacity=".5"/>
+    <ellipse cx="1420" cy="680" rx="180" ry="12" fill="#12100a" opacity=".5"/>
+  </svg>
+  <div class="overlay" style="background:rgba(0,0,0,.6)"></div>
+</div>
+<div class="slide-content">
+  <div class="slide-wrap">
+    <div class="slide-header">
+      <span class="slide-num">02</span>
+      <div class="slide-title-line" style="background:var(--ag)"></div>
+      <span class="slide-title" style="color:var(--ag)">Value Proposition</span>
+    </div>
+    <div class="blockq fragment fade-up" data-fragment-index="1" style="margin-bottom:20px;border-color:rgba(48,209,88,.25)">
+      <div style="font-size:10px;color:var(--ag);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">Core Value Proposition</div>
+      <p style="font-size:15px;color:#fff;margin:0;line-height:1.6;font-family:'Playfair Display',serif;font-style:italic">"Apple delivers a premium, seamless, secure, and easy-to-use digital ecosystem that combines beautifully designed devices, integrated software, and high-quality services."</p>
+    </div>
+    <div class="grid-5" style="flex:1">
+      <div class="card fragment fade-up" data-fragment-index="2" style="border-color:rgba(10,132,255,.3);text-align:center;padding:16px 10px">
+        <div style="font-size:30px;margin-bottom:8px">🎨</div>
+        <div style="font-size:11px;font-weight:700;color:var(--ab);margin-bottom:6px">Premium Design</div>
+        <div style="font-size:10px;color:var(--si)">High-end industrial design & brand prestige</div>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="3" style="border-color:rgba(48,209,88,.3);text-align:center;padding:16px 10px">
+        <div style="font-size:30px;margin-bottom:8px">🔗</div>
+        <div style="font-size:11px;font-weight:700;color:var(--ag);margin-bottom:6px">Integrated Ecosystem</div>
+        <div style="font-size:10px;color:var(--si)">iPhone · Mac · iPad · Watch work together</div>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="4" style="border-color:rgba(255,159,10,.3);text-align:center;padding:16px 10px">
+        <div style="font-size:30px;margin-bottom:8px">✨</div>
+        <div style="font-size:11px;font-weight:700;color:var(--ao);margin-bottom:6px">Ease of Use</div>
+        <div style="font-size:10px;color:var(--si)">Intuitive interfaces, low learning curve</div>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="5" style="border-color:rgba(255,69,58,.3);text-align:center;padding:16px 10px">
+        <div style="font-size:30px;margin-bottom:8px">🔐</div>
+        <div style="font-size:11px;font-weight:700;color:var(--ar);margin-bottom:6px">Privacy & Security</div>
+        <div style="font-size:10px;color:var(--si)">Core benefit for consumers & enterprise</div>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="6" style="border-color:rgba(191,90,242,.3);text-align:center;padding:16px 10px">
+        <div style="font-size:30px;margin-bottom:8px">☁️</div>
+        <div style="font-size:11px;font-weight:700;color:var(--ap);margin-bottom:6px">Services Layer</div>
+        <div style="font-size:10px;color:var(--si)">$96.2B — App Store, iCloud, Apple Pay</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════
+  SLIDE 5 — VALUE CREATION  |  BG: Apple Silicon chip
+═══════════════════════════════════ -->
+<section data-transition="slide">
+<div class="slide-bg">
+  <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="chipBg" cx="50%" cy="50%" r="70%">
+        <stop offset="0%" stop-color="#04061a"/>
+        <stop offset="100%" stop-color="#010208"/>
+      </radialGradient>
+      <radialGradient id="chipGlow2" cx="50%" cy="50%" r="35%">
+        <stop offset="0%" stop-color="#0a2050" stop-opacity=".6"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#chipBg)"/>
+    <rect width="1920" height="1080" fill="url(#chipGlow2)"/>
+    <!-- Grid lines -->
+    <g stroke="#0e1028" stroke-width="1">
+      <line x1="0" y1="108" x2="1920" y2="108"/><line x1="0" y1="216" x2="1920" y2="216"/>
+      <line x1="0" y1="324" x2="1920" y2="324"/><line x1="0" y1="432" x2="1920" y2="432"/>
+      <line x1="0" y1="540" x2="1920" y2="540"/><line x1="0" y1="648" x2="1920" y2="648"/>
+      <line x1="0" y1="756" x2="1920" y2="756"/><line x1="0" y1="864" x2="1920" y2="864"/>
+      <line x1="0" y1="972" x2="1920" y2="972"/>
+      <line x1="192" y1="0" x2="192" y2="1080"/><line x1="384" y1="0" x2="384" y2="1080"/>
+      <line x1="576" y1="0" x2="576" y2="1080"/><line x1="768" y1="0" x2="768" y2="1080"/>
+      <line x1="960" y1="0" x2="960" y2="1080"/><line x1="1152" y1="0" x2="1152" y2="1080"/>
+      <line x1="1344" y1="0" x2="1344" y2="1080"/><line x1="1536" y1="0" x2="1536" y2="1080"/>
+      <line x1="1728" y1="0" x2="1728" y2="1080"/>
+    </g>
+    <!-- Chip glow -->
+    <ellipse cx="960" cy="540" rx="450" ry="450" fill="#060e2e" opacity=".5"/>
+    <ellipse cx="960" cy="540" rx="320" ry="320" fill="#080e28" opacity=".6"/>
+    <!-- Chip body -->
+    <rect x="700" y="280" width="520" height="520" rx="20" fill="#10121e" stroke="#2a2e50" stroke-width="3"/>
+    <!-- Die cells -->
+    <g fill="#131528" stroke="#1e2240" stroke-width=".5">
+      <rect x="720" y="300" width="60" height="60" rx="4"/><rect x="786" y="300" width="60" height="60" rx="4"/>
+      <rect x="852" y="300" width="60" height="60" rx="4"/><rect x="918" y="300" width="60" height="60" rx="4"/>
+      <rect x="984" y="300" width="60" height="60" rx="4"/><rect x="1050" y="300" width="60" height="60" rx="4"/>
+      <rect x="1116" y="300" width="64" height="60" rx="4"/>
+      <rect x="720" y="366" width="60" height="60" rx="4"/><rect x="786" y="366" width="60" height="60" rx="4"/>
+      <rect x="852" y="366" width="60" height="60" rx="4"/><rect x="918" y="366" width="60" height="60" rx="4"/>
+      <rect x="984" y="366" width="60" height="60" rx="4"/><rect x="1050" y="366" width="60" height="60" rx="4"/>
+      <rect x="1116" y="366" width="64" height="60" rx="4"/>
+      <rect x="720" y="432" width="60" height="120" rx="4"/><rect x="786" y="432" width="120" height="55" rx="4"/>
+      <rect x="786" y="493" width="120" height="59" rx="4"/><rect x="912" y="432" width="120" height="120" rx="4"/>
+      <rect x="1038" y="432" width="60" height="55" rx="4"/><rect x="1104" y="432" width="76" height="120" rx="4"/>
+      <rect x="720" y="558" width="60" height="60" rx="4"/><rect x="1038" y="493" width="60" height="59" rx="4"/>
+      <rect x="720" y="624" width="60" height="60" rx="4"/><rect x="786" y="558" width="394" height="60" rx="4"/>
+      <rect x="786" y="624" width="394" height="60" rx="4"/>
+      <rect x="720" y="690" width="460" height="60" rx="4"/><rect x="1186" y="690" width="94" height="60" rx="4"/>
+      <rect x="720" y="756" width="460" height="44" rx="4"/><rect x="1186" y="756" width="94" height="44" rx="4"/>
+    </g>
+    <!-- M label box -->
+    <rect x="870" y="445" width="180" height="95" rx="10" fill="#18182e" stroke="#30346a" stroke-width="1.5"/>
+    <text x="930" y="503" fill="#6080e0" font-size="42" font-weight="900" font-family="serif" opacity=".8">M4</text>
+    <!-- Traces -->
+    <g stroke-width="1.2" fill="none" opacity=".6">
+      <path d="M960 280 L960 120 L400 120" stroke="#0a84ff"/>
+      <path d="M960 280 L960 120 L1520 120" stroke="#0a84ff"/>
+      <path d="M700 540 L540 540 L540 200" stroke="#30d158"/>
+      <path d="M1220 540 L1380 540 L1380 200" stroke="#30d158"/>
+      <path d="M700 400 L500 400 L500 900" stroke="#ff9f0a"/>
+      <path d="M1220 680 L1420 680 L1420 900" stroke="#ff9f0a"/>
+      <path d="M960 800 L960 960 L600 960" stroke="#bf5af2"/>
+      <path d="M960 800 L960 960 L1320 960" stroke="#bf5af2"/>
+      <path d="M800 280 L800 80 L300 80" stroke="#ff453a"/>
+      <path d="M1120 800 L1120 980 L1700 980" stroke="#5ac8fa"/>
+    </g>
+    <!-- Trace dots -->
+    <g>
+      <circle cx="400" cy="120" r="4" fill="#0a84ff"/><circle cx="1520" cy="120" r="4" fill="#0a84ff"/>
+      <circle cx="540" cy="200" r="4" fill="#30d158"/><circle cx="1380" cy="200" r="4" fill="#30d158"/>
+      <circle cx="500" cy="900" r="4" fill="#ff9f0a"/><circle cx="1420" cy="900" r="4" fill="#ff9f0a"/>
+      <circle cx="600" cy="960" r="4" fill="#bf5af2"/><circle cx="1320" cy="960" r="4" fill="#bf5af2"/>
+      <circle cx="300" cy="80" r="4" fill="#ff453a"/>
+      <circle cx="1700" cy="980" r="4" fill="#5ac8fa"/>
+    </g>
+    <!-- Pin pads -->
+    <g fill="#6878a0" opacity=".7">
+      <rect x="720" y="268" width="8" height="10" rx="2"/><rect x="790" y="268" width="8" height="10" rx="2"/>
+      <rect x="860" y="268" width="8" height="10" rx="2"/><rect x="930" y="268" width="8" height="10" rx="2"/>
+      <rect x="1000" y="268" width="8" height="10" rx="2"/><rect x="1070" y="268" width="8" height="10" rx="2"/>
+      <rect x="1140" y="268" width="8" height="10" rx="2"/>
+      <rect x="720" y="802" width="8" height="10" rx="2"/><rect x="790" y="802" width="8" height="10" rx="2"/>
+      <rect x="860" y="802" width="8" height="10" rx="2"/><rect x="930" y="802" width="8" height="10" rx="2"/>
+      <rect x="1000" y="802" width="8" height="10" rx="2"/><rect x="1070" y="802" width="8" height="10" rx="2"/>
+      <rect x="1140" y="802" width="8" height="10" rx="2"/>
+      <rect x="688" y="320" width="10" height="8" rx="2"/><rect x="688" y="390" width="10" height="8" rx="2"/>
+      <rect x="688" y="460" width="10" height="8" rx="2"/><rect x="688" y="530" width="10" height="8" rx="2"/>
+      <rect x="688" y="600" width="10" height="8" rx="2"/><rect x="688" y="670" width="10" height="8" rx="2"/>
+      <rect x="688" y="740" width="10" height="8" rx="2"/>
+      <rect x="1222" y="320" width="10" height="8" rx="2"/><rect x="1222" y="390" width="10" height="8" rx="2"/>
+      <rect x="1222" y="460" width="10" height="8" rx="2"/><rect x="1222" y="530" width="10" height="8" rx="2"/>
+      <rect x="1222" y="600" width="10" height="8" rx="2"/><rect x="1222" y="670" width="10" height="8" rx="2"/>
+      <rect x="1222" y="740" width="10" height="8" rx="2"/>
+    </g>
+  </svg>
+  <div class="overlay" style="background:rgba(0,0,0,.58)"></div>
+</div>
+<div class="slide-content">
+  <div class="slide-wrap">
+    <div class="slide-header">
+      <span class="slide-num">03</span>
+      <div class="slide-title-line" style="background:var(--ao)"></div>
+      <span class="slide-title" style="color:var(--ao)">How Apple Creates Value</span>
+    </div>
+    <div class="grid-2" style="flex:1">
+      <div class="card fragment fade-up" data-fragment-index="1" style="border-color:rgba(255,159,10,.3)">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div class="ic" style="background:rgba(255,159,10,.15);color:var(--ao)">🔬</div>
+          <div><h3 style="color:var(--ao);margin:0 0 6px;font-size:17px">Innovation & R&D</h3><p style="font-size:12px;margin:0;color:var(--si)">Apple invested <strong style="color:#fff">$31.4B</strong> in R&D in FY2024 (~8% of revenue). This sustains Apple Silicon (M-series chips), Vision Pro, and Apple Intelligence.</p></div>
+        </div>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="2" style="border-color:rgba(255,159,10,.3)">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div class="ic" style="background:rgba(255,159,10,.15);color:var(--ao)">🏗️</div>
+          <div><h3 style="color:var(--ao);margin:0 0 6px;font-size:17px">End-to-End Control</h3><p style="font-size:12px;margin:0;color:var(--si)">Apple controls <strong style="color:#fff">chips → OS → apps → services → retail</strong>. Full vertical integration lets Apple optimize performance & reliability uniquely.</p></div>
+        </div>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="3" style="border-color:rgba(255,159,10,.3)">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div class="ic" style="background:rgba(255,159,10,.15);color:var(--ao)">🔄</div>
+          <div><h3 style="color:var(--ao);margin:0 0 6px;font-size:17px">Ecosystem Lock-in</h3><p style="font-size:12px;margin:0;color:var(--si)">Each device amplifies the value of others. iPhone → AirPods → Watch → iCloud → Mac. Services grew to <strong style="color:#fff">$96.2B</strong> in FY2024.</p></div>
+        </div>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="4" style="border-color:rgba(255,159,10,.3)">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div class="ic" style="background:rgba(255,159,10,.15);color:var(--ao)">🏪</div>
+          <div><h3 style="color:var(--ao);margin:0 0 6px;font-size:17px">Brand & Retail</h3><p style="font-size:12px;margin:0;color:var(--si)">Apple Stores are the <strong style="color:#fff">world's highest-grossing retail per sq. ft.</strong> Premium experience, education, support — no intermediaries.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════
+  SLIDE 6 — VALUE CAPTURE  |  BG: Apple Park (purple tint)
+═══════════════════════════════════ -->
+<section data-transition="slide">
+<div class="slide-bg">
+  <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="purpBg" cx="50%" cy="0%" r="80%">
+        <stop offset="0%" stop-color="#120520"/>
+        <stop offset="100%" stop-color="#05020a"/>
+      </radialGradient>
+      <radialGradient id="purpGlow" cx="50%" cy="62%" r="38%">
+        <stop offset="0%" stop-color="#3a0a6e" stop-opacity=".45"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+    <rect width="1920" height="680" fill="url(#purpBg)"/>
+    <rect y="680" width="1920" height="400" fill="#06020e"/>
+    <rect width="1920" height="1080" fill="url(#purpGlow)"/>
+    <!-- Stars -->
+    <g fill="white" opacity=".5">
+      <circle cx="120" cy="60" r="1.2"/><circle cx="280" cy="30" r="1"/><circle cx="450" cy="90" r="1.5"/>
+      <circle cx="600" cy="45" r="1"/><circle cx="750" cy="80" r="1.2"/><circle cx="1050" cy="70" r="1.5"/>
+      <circle cx="1200" cy="40" r="1"/><circle cx="1380" cy="85" r="1.2"/><circle cx="1520" cy="55" r="1"/>
+      <circle cx="1680" cy="30" r="1.5"/><circle cx="200" cy="150" r="1"/><circle cx="380" cy="180" r="1.3"/>
+      <circle cx="720" cy="170" r="1.2"/><circle cx="1190" cy="120" r="1"/><circle cx="1500" cy="145" r="1"/>
+      <circle cx="1650" cy="165" r="1.3"/><circle cx="330" cy="240" r="1"/><circle cx="810" cy="220" r="1.1"/>
+      <circle cx="1270" cy="245" r="1"/><circle cx="1430" cy="215" r="1.2"/><circle cx="1750" cy="225" r="1.3"/>
+    </g>
+    <!-- Ring -->
+    <ellipse cx="960" cy="670" rx="340" ry="115" fill="#181020"/>
+    <ellipse cx="960" cy="670" rx="235" ry="78" fill="#06030e"/>
+    <!-- Purple-tinted windows -->
+    <g opacity=".8">
+      <circle cx="640" cy="655" r="3" fill="#d070ff"/><circle cx="664" cy="641" r="3.5" fill="#cc66ff"/>
+      <circle cx="692" cy="628" r="3" fill="#d070ff"/><circle cx="722" cy="618" r="3.5" fill="#cc66ff"/>
+      <circle cx="754" cy="611" r="3" fill="#d070ff"/><circle cx="787" cy="607" r="3.5" fill="#cc66ff"/>
+      <circle cx="820" cy="605" r="3" fill="#d070ff"/><circle cx="854" cy="606" r="3.5" fill="#cc66ff"/>
+      <circle cx="888" cy="610" r="3" fill="#d070ff"/><circle cx="921" cy="616" r="3.5" fill="#cc66ff"/>
+      <circle cx="953" cy="625" r="3" fill="#d070ff"/><circle cx="983" cy="636" r="3.5" fill="#cc66ff"/>
+      <circle cx="1010" cy="649" r="3" fill="#d070ff"/><circle cx="1033" cy="663" r="3.5" fill="#cc66ff"/>
+      <circle cx="1052" cy="677" r="3" fill="#d070ff"/><circle cx="1065" cy="692" r="3.5" fill="#cc66ff"/>
+      <circle cx="1088" cy="702" r="3" fill="#d070ff"/><circle cx="1115" cy="709" r="3.5" fill="#cc66ff"/>
+      <circle cx="1144" cy="714" r="3" fill="#d070ff"/><circle cx="1174" cy="715" r="3.5" fill="#cc66ff"/>
+      <circle cx="1204" cy="712" r="3" fill="#d070ff"/><circle cx="1233" cy="706" r="3.5" fill="#cc66ff"/>
+      <circle cx="1260" cy="697" r="3" fill="#d070ff"/><circle cx="1284" cy="685" r="3.5" fill="#cc66ff"/>
+      <circle cx="1302" cy="670" r="3" fill="#d070ff"/><circle cx="1313" cy="654" r="3.5" fill="#cc66ff"/>
+      <circle cx="1316" cy="637" r="3" fill="#d070ff"/><circle cx="1310" cy="620" r="3.5" fill="#cc66ff"/>
+      <circle cx="1296" cy="605" r="3" fill="#d070ff"/><circle cx="1274" cy="592" r="3.5" fill="#cc66ff"/>
+      <circle cx="1246" cy="583" r="3" fill="#d070ff"/><circle cx="1213" cy="577" r="3.5" fill="#cc66ff"/>
+      <circle cx="1178" cy="575" r="3" fill="#d070ff"/><circle cx="1140" cy="576" r="3.5" fill="#cc66ff"/>
+      <circle cx="1100" cy="580" r="3" fill="#d070ff"/><circle cx="1060" cy="587" r="3.5" fill="#cc66ff"/>
+      <circle cx="1020" cy="597" r="3" fill="#d070ff"/><circle cx="981" cy="609" r="3.5" fill="#cc66ff"/>
+      <circle cx="944" cy="623" r="3" fill="#d070ff"/><circle cx="909" cy="639" r="3.5" fill="#cc66ff"/>
+      <circle cx="876" cy="656" r="3" fill="#d070ff"/><circle cx="845" cy="674" r="3.5" fill="#cc66ff"/>
+      <circle cx="816" cy="692" r="3" fill="#d070ff"/><circle cx="789" cy="710" r="3.5" fill="#cc66ff"/>
+      <circle cx="762" cy="724" r="3" fill="#d070ff"/><circle cx="733" cy="731" r="3.5" fill="#cc66ff"/>
+      <circle cx="700" cy="732" r="3" fill="#d070ff"/><circle cx="665" cy="726" r="3.5" fill="#cc66ff"/>
+    </g>
+    <line x1="960" y1="592" x2="960" y2="670" stroke="#1a1025" stroke-width="13"/>
+    <line x1="625" y1="670" x2="960" y2="670" stroke="#1a1025" stroke-width="13"/>
+    <line x1="960" y1="670" x2="1295" y2="670" stroke="#1a1025" stroke-width="13"/>
+    <line x1="960" y1="670" x2="960" y2="748" stroke="#1a1025" stroke-width="13"/>
+  </svg>
+  <div class="overlay" style="background:rgba(0,0,0,.58)"></div>
+</div>
+<div class="slide-content">
+  <div class="slide-wrap">
+    <div class="slide-header">
+      <span class="slide-num">04</span>
+      <div class="slide-title-line" style="background:var(--ap)"></div>
+      <span class="slide-title" style="color:var(--ap)">Value Capture Strategy</span>
+    </div>
+    <div class="col-4060" style="flex:1;align-items:start">
+      <div class="fragment fade-up" data-fragment-index="1">
+        <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:14px">Gross Margin Comparison FY2024</div>
+        <div style="margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:#fff">Services</span><span style="color:var(--ag);font-weight:700">73.9%</span></div>
+          <div class="pbar"><div class="pfill" style="width:73.9%;background:var(--ag)"></div></div>
+        </div>
+        <div style="margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:#fff">Overall</span><span style="color:var(--ab);font-weight:700">46.2%</span></div>
+          <div class="pbar"><div class="pfill" style="width:46.2%;background:var(--ab)"></div></div>
+        </div>
+        <div style="margin-bottom:20px">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:#fff">Products</span><span style="color:var(--ao);font-weight:700">37.2%</span></div>
+          <div class="pbar"><div class="pfill" style="width:37.2%;background:var(--ao)"></div></div>
+        </div>
+        <div class="card fragment fade-up" data-fragment-index="2" style="border-color:rgba(191,90,242,.3)">
+          <div style="font-size:22px;font-weight:700;color:var(--ap)">$96.2B</div>
+          <div style="font-size:10px;color:var(--si);margin-top:2px">Services Revenue FY2024</div>
+          <div style="font-size:11px;color:var(--ag);margin-top:4px">+13% YoY · 73.9% Margin</div>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="card fragment fade-up" data-fragment-index="3" style="display:flex;gap:12px;align-items:center;border-color:rgba(191,90,242,.25)">
+            <div style="font-size:26px;font-weight:900;color:var(--ap);font-family:'Playfair Display',serif;min-width:32px">01</div>
+            <div><div style="font-size:12px;font-weight:600;color:#fff">Premium Hardware Pricing</div><div style="font-size:11px;color:var(--si)">Brand + ecosystem justify premiums vs competitors</div></div>
+          </div>
+          <div class="card fragment fade-up" data-fragment-index="4" style="display:flex;gap:12px;align-items:center;border-color:rgba(191,90,242,.25)">
+            <div style="font-size:26px;font-weight:900;color:var(--ap);font-family:'Playfair Display',serif;min-width:32px">02</div>
+            <div><div style="font-size:12px;font-weight:600;color:#fff">Recurring Services Revenue</div><div style="font-size:11px;color:var(--si)">$96.2B in FY2024 — App Store, iCloud, subscriptions</div></div>
+          </div>
+          <div class="card fragment fade-up" data-fragment-index="5" style="display:flex;gap:12px;align-items:center;border-color:rgba(191,90,242,.25)">
+            <div style="font-size:26px;font-weight:900;color:var(--ap);font-family:'Playfair Display',serif;min-width:32px">03</div>
+            <div><div style="font-size:12px;font-weight:600;color:#fff">Ecosystem Cross-Selling</div><div style="font-size:11px;color:var(--si)">AirPods, Watch, AppleCare boost lifetime customer value</div></div>
+          </div>
+          <div class="card fragment fade-up" data-fragment-index="6" style="display:flex;gap:12px;align-items:center;border-color:rgba(191,90,242,.25)">
+            <div style="font-size:26px;font-weight:900;color:var(--ap);font-family:'Playfair Display',serif;min-width:32px">04</div>
+            <div><div style="font-size:12px;font-weight:600;color:#fff">Direct Distribution Control</div><div style="font-size:11px;color:var(--si)">Own retail/online — maximize margins, present brand</div></div>
+          </div>
+          <div class="card fragment fade-up" data-fragment-index="7" style="display:flex;gap:12px;align-items:center;border-color:rgba(191,90,242,.25)">
+            <div style="font-size:26px;font-weight:900;color:var(--ap);font-family:'Playfair Display',serif;min-width:32px">05</div>
+            <div><div style="font-size:12px;font-weight:600;color:#fff">IP & Platform Protection</div><div style="font-size:11px;color:var(--si)">Thousands of patents defend differentiation & moat</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════
+  SLIDE 7 — PORTER'S FIVE FORCES  |  BG: Apple Park (red tint)
+═══════════════════════════════════ -->
+<section data-transition="convex">
+<div class="slide-bg">
+  <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="redBg" cx="50%" cy="0%" r="80%">
+        <stop offset="0%" stop-color="#1a0505"/>
+        <stop offset="100%" stop-color="#050002"/>
+      </radialGradient>
+      <radialGradient id="redGlow" cx="50%" cy="62%" r="38%">
+        <stop offset="0%" stop-color="#4e0a0a" stop-opacity=".5"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+    <rect width="1920" height="680" fill="url(#redBg)"/>
+    <rect y="680" width="1920" height="400" fill="#070002"/>
+    <rect width="1920" height="1080" fill="url(#redGlow)"/>
+    <g fill="white" opacity=".45">
+      <circle cx="120" cy="60" r="1.2"/><circle cx="280" cy="30" r="1"/><circle cx="450" cy="90" r="1.5"/>
+      <circle cx="750" cy="80" r="1.2"/><circle cx="1050" cy="70" r="1.5"/><circle cx="1380" cy="85" r="1.2"/>
+      <circle cx="1680" cy="30" r="1.5"/><circle cx="380" cy="180" r="1.3"/><circle cx="720" cy="170" r="1.2"/>
+      <circle cx="1500" cy="145" r="1"/><circle cx="1650" cy="165" r="1.3"/>
+    </g>
+    <ellipse cx="960" cy="670" rx="340" ry="115" fill="#1e0808"/>
+    <ellipse cx="960" cy="670" rx="235" ry="78" fill="#0a0203"/>
+    <g opacity=".8">
+      <circle cx="640" cy="655" r="3" fill="#ff6050"/><circle cx="670" cy="639" r="3.5" fill="#ff7060"/>
+      <circle cx="702" cy="625" r="3" fill="#ff6050"/><circle cx="736" cy="614" r="3.5" fill="#ff7060"/>
+      <circle cx="772" cy="607" r="3" fill="#ff6050"/><circle cx="809" cy="603" r="3.5" fill="#ff7060"/>
+      <circle cx="847" cy="602" r="3" fill="#ff6050"/><circle cx="885" cy="604" r="3.5" fill="#ff7060"/>
+      <circle cx="922" cy="609" r="3" fill="#ff6050"/><circle cx="958" cy="617" r="3.5" fill="#ff7060"/>
+      <circle cx="993" cy="628" r="3" fill="#ff6050"/><circle cx="1025" cy="641" r="3.5" fill="#ff7060"/>
+      <circle cx="1054" cy="656" r="3" fill="#ff6050"/><circle cx="1078" cy="672" r="3.5" fill="#ff7060"/>
+      <circle cx="1098" cy="688" r="3" fill="#ff6050"/><circle cx="1112" cy="705" r="3.5" fill="#ff7060"/>
+      <circle cx="1138" cy="712" r="3" fill="#ff6050"/><circle cx="1168" cy="717" r="3.5" fill="#ff7060"/>
+      <circle cx="1198" cy="718" r="3" fill="#ff6050"/><circle cx="1228" cy="715" r="3.5" fill="#ff7060"/>
+      <circle cx="1257" cy="708" r="3" fill="#ff6050"/><circle cx="1282" cy="697" r="3.5" fill="#ff7060"/>
+      <circle cx="1302" cy="683" r="3" fill="#ff6050"/><circle cx="1315" cy="666" r="3.5" fill="#ff7060"/>
+      <circle cx="1319" cy="648" r="3" fill="#ff6050"/><circle cx="1314" cy="630" r="3.5" fill="#ff7060"/>
+      <circle cx="1298" cy="612" r="3" fill="#ff6050"/><circle cx="1272" cy="596" r="3.5" fill="#ff7060"/>
+      <circle cx="1238" cy="584" r="3" fill="#ff6050"/><circle cx="1198" cy="576" r="3.5" fill="#ff7060"/>
+      <circle cx="1154" cy="572" r="3" fill="#ff6050"/><circle cx="1108" cy="572" r="3.5" fill="#ff7060"/>
+      <circle cx="1061" cy="575" r="3" fill="#ff6050"/><circle cx="1014" cy="582" r="3.5" fill="#ff7060"/>
+      <circle cx="968" cy="592" r="3" fill="#ff6050"/><circle cx="922" cy="604" r="3.5" fill="#ff7060"/>
+      <circle cx="877" cy="619" r="3" fill="#ff6050"/><circle cx="834" cy="637" r="3.5" fill="#ff7060"/>
+      <circle cx="793" cy="657" r="3" fill="#ff6050"/><circle cx="755" cy="678" r="3.5" fill="#ff7060"/>
+      <circle cx="720" cy="700" r="3" fill="#ff6050"/><circle cx="689" cy="721" r="3.5" fill="#ff7060"/>
+      <circle cx="661" cy="740" r="3" fill="#ff6050"/>
+    </g>
+    <line x1="960" y1="592" x2="960" y2="670" stroke="#200a08" stroke-width="13"/>
+    <line x1="625" y1="670" x2="960" y2="670" stroke="#200a08" stroke-width="13"/>
+    <line x1="960" y1="670" x2="1295" y2="670" stroke="#200a08" stroke-width="13"/>
+    <line x1="960" y1="670" x2="960" y2="748" stroke="#200a08" stroke-width="13"/>
+  </svg>
+  <div class="overlay" style="background:rgba(0,0,0,.58)"></div>
+</div>
+<div class="slide-content">
+  <div class="slide-wrap">
+    <div class="slide-header">
+      <span class="slide-num">05</span>
+      <div class="slide-title-line" style="background:var(--ar)"></div>
+      <span class="slide-title" style="color:var(--ar)">Porter's Five Forces</span>
+    </div>
+    <div class="force-grid" style="flex:1">
+      <!-- Top left: Rivalry -->
+      <div class="force-box fragment fade-up" data-fragment-index="1">
+        <div style="font-size:11px;font-weight:700;color:var(--ar);margin-bottom:4px">⚔️ Competitive Rivalry</div>
+        <span class="tag tag-high" style="margin-bottom:8px;display:inline-block">HIGH</span>
+        <p style="font-size:11px;margin:0;color:var(--si)">Samsung, Google, Microsoft — intense competition in AI, pricing & distribution. Apple holds 23% smartphone share.</p>
+      </div>
+      <!-- Top center: spacer -->
+      <div></div>
+      <!-- Top right: Suppliers -->
+      <div class="force-box fragment fade-up" data-fragment-index="2">
+        <div style="font-size:11px;font-weight:700;color:var(--ao);margin-bottom:4px">🏭 Supplier Power</div>
+        <span class="tag tag-mod" style="margin-bottom:8px;display:inline-block">MODERATE</span>
+        <p style="font-size:11px;margin:0;color:var(--si)">Apple's scale offsets component concentration. In-house M-chip design reduces reliance on suppliers like Intel.</p>
+      </div>
+      <!-- Mid left: New Entrants -->
+      <div class="force-box fragment fade-up" data-fragment-index="3">
+        <div style="font-size:11px;font-weight:700;color:var(--ag);margin-bottom:4px">🚪 New Entrants</div>
+        <span class="tag tag-low" style="margin-bottom:8px;display:inline-block">LOW–MOD</span>
+        <p style="font-size:11px;margin:0;color:var(--si)">$31.4B R&D barrier + full ecosystem + brand + retail = extremely high entry cost.</p>
+      </div>
+      <!-- Center -->
+      <div style="display:flex;align-items:center;justify-content:center">
+        <div class="force-center glow-b"><span style="color:#fff">Apple<br>Inc.</span></div>
+      </div>
+      <!-- Mid right: Buyers -->
+      <div class="force-box fragment fade-up" data-fragment-index="4">
+        <div style="font-size:11px;font-weight:700;color:var(--ab);margin-bottom:4px">🛒 Buyer Power</div>
+        <span class="tag tag-mod" style="margin-bottom:8px;display:inline-block">MODERATE</span>
+        <p style="font-size:11px;margin:0;color:var(--si)">Ecosystem lock-in drastically reduces switching. 2B+ active devices create high stickiness.</p>
+      </div>
+      <!-- Bottom left: spacer -->
+      <div></div>
+      <!-- Bottom center: Substitutes -->
+      <div class="force-box fragment fade-up" data-fragment-index="5">
+        <div style="font-size:11px;font-weight:700;color:var(--ap);margin-bottom:4px">🔄 Substitutes</div>
+        <span class="tag tag-mod" style="margin-bottom:8px;display:inline-block">MOD–HIGH</span>
+        <p style="font-size:11px;margin:0;color:var(--si)">Android/Windows viable alternatives — but Apple's full UX bundle is difficult to replicate.</p>
+      </div>
+      <!-- Bottom right: spacer -->
+      <div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════
+  SLIDE 8 — CONCLUSION  |  BG: Apple Park night (original)
+═══════════════════════════════════ -->
+<section data-transition="fade">
+<div class="slide-bg">
+  <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="concBg" cx="50%" cy="0%" r="80%">
+        <stop offset="0%" stop-color="#02040c"/>
+        <stop offset="100%" stop-color="#000204"/>
+      </radialGradient>
+    </defs>
+    <rect width="1920" height="680" fill="url(#concBg)"/>
+    <rect y="680" width="1920" height="400" fill="#010202"/>
+    <!-- Stars -->
+    <g fill="white" opacity=".6">
+      <circle cx="120" cy="60" r="1.2"/><circle cx="280" cy="30" r="1"/><circle cx="450" cy="90" r="1.5"/>
+      <circle cx="600" cy="45" r="1"/><circle cx="750" cy="80" r="1.2"/><circle cx="900" cy="25" r="1"/>
+      <circle cx="1050" cy="70" r="1.5"/><circle cx="1200" cy="40" r="1"/><circle cx="1380" cy="85" r="1.2"/>
+      <circle cx="1520" cy="55" r="1"/><circle cx="1680" cy="30" r="1.5"/><circle cx="1820" cy="75" r="1"/>
+      <circle cx="200" cy="150" r="1"/><circle cx="380" cy="180" r="1.3"/><circle cx="550" cy="130" r="1"/>
+      <circle cx="720" cy="170" r="1.2"/><circle cx="870" cy="140" r="1"/><circle cx="1350" cy="175" r="1.2"/>
+      <circle cx="1500" cy="145" r="1"/><circle cx="1650" cy="165" r="1.3"/><circle cx="1800" cy="130" r="1"/>
+    </g>
+    <!-- Ring -->
+    <ellipse cx="960" cy="665" rx="340" ry="115" fill="#111418"/>
+    <ellipse cx="960" cy="665" rx="235" ry="78" fill="#03050a"/>
+    <g opacity=".75">
+      <circle cx="630" cy="650" r="3.5" fill="#ffbb30"/><circle cx="656" cy="635" r="3" fill="#ffcc40"/>
+      <circle cx="684" cy="622" r="3.5" fill="#ffbb30"/><circle cx="714" cy="612" r="3" fill="#ffcc40"/>
+      <circle cx="746" cy="606" r="3.5" fill="#ffbb30"/><circle cx="780" cy="602" r="3" fill="#ffcc40"/>
+      <circle cx="814" cy="601" r="3.5" fill="#ffbb30"/><circle cx="849" cy="603" r="3" fill="#ffcc40"/>
+      <circle cx="883" cy="608" r="3.5" fill="#ffbb30"/><circle cx="917" cy="615" r="3" fill="#ffcc40"/>
+      <circle cx="949" cy="625" r="3.5" fill="#ffbb30"/><circle cx="980" cy="637" r="3" fill="#ffcc40"/>
+      <circle cx="1007" cy="651" r="3.5" fill="#ffbb30"/><circle cx="1030" cy="666" r="3" fill="#ffcc40"/>
+      <circle cx="1049" cy="682" r="3.5" fill="#ffbb30"/><circle cx="1072" cy="696" r="3" fill="#ffcc40"/>
+      <circle cx="1099" cy="706" r="3.5" fill="#ffbb30"/><circle cx="1128" cy="712" r="3" fill="#ffcc40"/>
+      <circle cx="1158" cy="715" r="3.5" fill="#ffbb30"/><circle cx="1188" cy="714" r="3" fill="#ffcc40"/>
+      <circle cx="1218" cy="709" r="3.5" fill="#ffbb30"/><circle cx="1246" cy="700" r="3" fill="#ffcc40"/>
+      <circle cx="1270" cy="687" r="3.5" fill="#ffbb30"/><circle cx="1289" cy="672" r="3" fill="#ffcc40"/>
+      <circle cx="1300" cy="655" r="3.5" fill="#ffbb30"/><circle cx="1303" cy="637" r="3" fill="#ffcc40"/>
+      <circle cx="1296" cy="619" r="3.5" fill="#ffbb30"/><circle cx="1280" cy="602" r="3" fill="#ffcc40"/>
+      <circle cx="1256" cy="588" r="3.5" fill="#ffbb30"/><circle cx="1224" cy="578" r="3" fill="#ffcc40"/>
+      <circle cx="1186" cy="572" r="3.5" fill="#ffbb30"/><circle cx="1144" cy="570" r="3" fill="#ffcc40"/>
+      <circle cx="1100" cy="572" r="3.5" fill="#ffbb30"/><circle cx="1054" cy="577" r="3" fill="#ffcc40"/>
+      <circle cx="1008" cy="585" r="3.5" fill="#ffbb30"/><circle cx="962" cy="596" r="3" fill="#ffcc40"/>
+      <circle cx="916" cy="610" r="3.5" fill="#ffbb30"/><circle cx="872" cy="626" r="3" fill="#ffcc40"/>
+      <circle cx="829" cy="645" r="3.5" fill="#ffbb30"/><circle cx="789" cy="665" r="3" fill="#ffcc40"/>
+      <circle cx="752" cy="686" r="3.5" fill="#ffbb30"/><circle cx="718" cy="707" r="3" fill="#ffcc40"/>
+      <circle cx="686" cy="726" r="3.5" fill="#ffbb30"/>
+    </g>
+    <line x1="960" y1="587" x2="960" y2="665" stroke="#121820" stroke-width="13"/>
+    <line x1="625" y1="665" x2="960" y2="665" stroke="#121820" stroke-width="13"/>
+    <line x1="960" y1="665" x2="1295" y2="665" stroke="#121820" stroke-width="13"/>
+    <line x1="960" y1="665" x2="960" y2="743" stroke="#121820" stroke-width="13"/>
+  </svg>
+  <div class="overlay" style="background:rgba(0,0,0,.65)"></div>
+</div>
+<div class="slide-content">
+  <div class="slide-wrap" style="align-items:center;justify-content:center;text-align:center">
+    <!-- Apple logo SVG -->
+    <svg width="70" height="70" viewBox="0 0 100 110" class="float fragment fade-up" data-fragment-index="1" style="margin:0 auto 10px">
+      <path d="M 50 10 C 50 10 58 2 70 4 C 70 18 60 24 50 22 Z" fill="white"/>
+      <path d="M 20 38 C 28 24 40 20 50 22 C 60 20 72 24 80 38 C 90 55 88 80 76 95 C 68 106 58 108 50 105 C 42 108 32 106 24 95 C 12 80 10 55 20 38 Z" fill="white"/>
+      <ellipse cx="74" cy="48" rx="18" ry="22" fill="#0a0a14"/>
+    </svg>
+    <h1 class="fragment fade-up" data-fragment-index="2" style="font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,56px);color:#fff;margin:0 0 10px">Conclusion</h1>
+    <div style="width:60px;height:3px;background:var(--ab);border-radius:2px;margin:0 auto 28px" class="fragment fade-up" data-fragment-index="2"></div>
+    <div style="max-width:820px;display:flex;flex-direction:column;gap:10px">
+      <div class="card fragment fade-up" data-fragment-index="3" style="text-align:left;display:flex;gap:12px;border-color:rgba(10,132,255,.3)">
+        <div style="width:4px;min-height:100%;background:var(--ab);border-radius:2px;flex-shrink:0"></div>
+        <p style="margin:0;font-size:12px;color:var(--si)"><strong style="color:#fff">Value Creation:</strong> Premium design, integrated ecosystem, $31.4B R&D investment, Apple Silicon, Privacy-first approach</p>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="4" style="text-align:left;display:flex;gap:12px;border-color:rgba(48,209,88,.3)">
+        <div style="width:4px;min-height:100%;background:var(--ag);border-radius:2px;flex-shrink:0"></div>
+        <p style="margin:0;font-size:12px;color:var(--si)"><strong style="color:#fff">Value Capture:</strong> Premium pricing, Services $96.2B at 73.9% GM, IP protection, direct distribution control</p>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="5" style="text-align:left;display:flex;gap:12px;border-color:rgba(255,159,10,.3)">
+        <div style="width:4px;min-height:100%;background:var(--ao);border-radius:2px;flex-shrink:0"></div>
+        <p style="margin:0;font-size:12px;color:var(--si)"><strong style="color:#fff">Porter's Analysis:</strong> High rivalry & substitutes — significantly softened by differentiation, brand power & ecosystem lock-in</p>
+      </div>
+      <div class="card fragment fade-up" data-fragment-index="6" style="text-align:left;display:flex;gap:12px;border-color:rgba(191,90,242,.3)">
+        <div style="width:4px;min-height:100%;background:var(--ap);border-radius:2px;flex-shrink:0"></div>
+        <p style="margin:0;font-size:12px;color:var(--si)"><strong style="color:#fff">Result:</strong> $93.7B net income · 46.2% gross margin · ~$3T market cap — world's most valuable and profitable tech company</p>
+      </div>
+    </div>
+    <div class="fragment fade-up" data-fragment-index="7" style="margin-top:18px;font-size:10px;color:rgba(174,174,178,.5)">Source: Apple Inc. 10-K FY2024 · SEC EDGAR · Britannica · Counterpoint Research Q4 2024</div>
+  </div>
+</div>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+// ── MEMBER COLORS ──
+const COLORS = ['#0A84FF','#30D158','#FF9F0A','#BF5AF2','#FF453A','#5AC8FA'];
+const ROLES  = ['Taqdimotchi','Tahlilchi','Muharriri','Dizayner','Moderator','Tadqiqotchi','Prezentator','Yetakchi'];
+
+// ── BUILD SETUP FORM ──
+const grid = document.getElementById('members-grid');
+for (let i = 0; i < 4; i++) {
+  const col = COLORS[i];
+  const row = document.createElement('div');
+  row.className = 'member-row';
+  row.innerHTML = `
+    <label style="color:${col}">👤 ${i+1}-a'zo</label>
+    <div class="member-inputs">
+      <input id="name-${i}" type="text" placeholder="Ism Familiya" />
+      <select id="role-${i}" class="role-select">
+        ${ROLES.map((r,ri) => `<option value="${r}" ${ri===i?'selected':''}>${r}</option>`).join('')}
+      </select>
+    </div>`;
+  grid.appendChild(row);
+}
+
+function startPresentation() {
+  // Collect member data
+  const members = [];
+  for (let i = 0; i < 4; i++) {
+    const name = document.getElementById(`name-${i}`).value.trim();
+    const role = document.getElementById(`role-${i}`).value;
+    if (name) members.push({ name, role, color: COLORS[i] });
+  }
+  if (members.length === 0) {
+    // Use defaults if nothing entered
+    for (let i = 0; i < 4; i++) members.push({name:`A'zo ${i+1}`, role: ROLES[i], color: COLORS[i]});
+  }
+
+  const course = document.getElementById('course-name').value.trim() || 'Strategic Management';
+  const date   = document.getElementById('course-date').value.trim()   || '2025';
+
+  // ── Inject members into slide 1 ──
+  const sm = document.getElementById('slide-members');
+  sm.innerHTML = members.map(m => `
+    <div class="mc-member">
+      <div class="mc-avatar" style="background:${m.color}22;color:${m.color};border:1.5px solid ${m.color}40">
+        ${m.name.charAt(0).toUpperCase()}
+      </div>
+      <div>
+        <div class="mc-name">${m.name}</div>
+        <div class="mc-role">${m.role}</div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('slide-course').innerHTML =
+    `Kurs: ${course}<br>Sana: ${date}`;
+
+  // Hide setup, init Reveal
+  document.getElementById('setup-screen').style.display = 'none';
+  Reveal.initialize({
+    hash: true,
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    progress: true,
+    controls: true,
+    slideNumber: 'c/t',
+    width: 1280,
+    height: 720,
+    margin: 0,
+    center: false,
+  });
+}
+</script>
+</body>
+</html>
